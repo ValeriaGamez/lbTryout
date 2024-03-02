@@ -3,6 +3,8 @@ from .models import Par
 from .serializers import ParSerializer
 from django.http import Http404
 from django.db.models import DurationField
+from rest_framework import status
+
 
 
 import pandas as pd
@@ -19,11 +21,15 @@ def getParsList(request):
 
 def createPar(request):
     data = request.data
+
+    # Check if arm number is already being used
+    if Par.objects.filter(armNum=data['armNum']).exists():
+        return Response({"message": "Arm number is already in use."}, status=status.HTTP_400_BAD_REQUEST)
     par = Par.objects.create(
         name=data['name'],
         armNum=data['armNum'],
-        swimTime=parse_duration(data.get('swimTime')),  
-        rsrTime=parse_duration(data.get('rsrTime')),
+        swimTime=parse_duration(str(data.get('swimTime', 0.0))),  
+        rsrTime=parse_duration(str(data.get('rsrTime', 0.0))),
     )
     serializer = ParSerializer(par, many=False)
     return Response(serializer.data)
@@ -129,8 +135,8 @@ def export_rsr(request):
 
     df = pd.DataFrame(data)
     #print(df)
-    df.index = df.index + 1
-    df.to_excel('rsr.xlsx', index=True) 
+    # df.index = df.index + 1
+    df.to_excel('rsr.xlsx', index=False) 
 
 
     return JsonResponse({'status': 200})       
@@ -151,7 +157,7 @@ def export_all(request):
     # Populate the data dictionary with values from the queryset
     for idx, obj in enumerate(objs, start=1):
 
-        obj.totalPts = obj.swimPts + obj.rsrPts
+        obj.totalPts = float(obj.swimPts) + float(obj.rsrPts)
         for field in fields_to_export:
             if field == 'rank':
                 obj.rank = idx
