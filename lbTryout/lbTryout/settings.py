@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-c(x&n^j8g#dw*#2wa^b@%t$tia*tdx)s+p5vo78!2-ya@)xqxj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lbtryout.onrender.com', 'lbtryout-1.onrender.com']
+ALLOWED_HOSTS = ['lbtryout.onrender.com', 'lbtryout-1.onrender.com', '127.0.0.1']
 
 
 # Application definition
@@ -138,4 +138,10 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ORIGINS = [
+    'https://www.lblgtryout.com/',
+    'http://localhost:5173/'
+
+
+]
