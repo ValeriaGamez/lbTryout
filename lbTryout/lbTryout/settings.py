@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-c(x&n^j8g#dw*#2wa^b@%t$tia*tdx)s+p5vo78!2-ya@)xqxj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lbtryout.onrender.com', '127.0.0.1']
+ALLOWED_HOSTS = ['lbtryout.onrender.com']
 
 
 # Application definition
@@ -59,9 +59,7 @@ ROOT_URLCONF = 'lbTryout.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            BASE_DIR / 'frontend/dist'
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,10 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'assets/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'frontend/dist/assets'
-]
+STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR/'assets'
 
 # STORAGES = {
