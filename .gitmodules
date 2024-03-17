@@ -1,0 +1,3 @@
+[submodule "lbTryout/frontend"]
+	path = lbTryout/frontend
+	url = git@github.com:ValeriaGamez/lbTryout-Frontend.git
